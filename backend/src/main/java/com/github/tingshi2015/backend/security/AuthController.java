@@ -6,12 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping()
 public class AuthController {
 
-    @GetMapping("/me")
+    @GetMapping("/api/auth/me")
     public String getMe(@AuthenticationPrincipal OAuth2User user) {
-        return user.getAttributes().get("login").toString();
+//        return user.getAttributes().get("login").toString();
+        return user != null ? user.getAttributes().get("login").toString() : null;
     }
+
+
 }
