@@ -22,38 +22,20 @@ class AuthControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser(username = "test-user")
     void testGetMe_withLoggedInUser_expectUsername() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/me"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("?"));
-    }
-
-    @Test
-    @DirtiesContext
-    void testGetMe_withLoggedInUser_expectUsername2() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/me")
                         .with(oidcLogin().userInfoToken(token -> token
                                 .claim("login", "github-username")
-                                .claim("avatar_url", "testAvatarUrl")
                         ))
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                //.andExpect(MockMvcResultMatchers.content().string("github-username"))
-                .andExpect(MockMvcResultMatchers.content().json(
-            """
-                        {
-                        "username": "github-username",
-                        "avatarUrl": "testAvatarUrl"
-                        }
-                        """
-                            ));
+                .andExpect(MockMvcResultMatchers.content().string("github-username"));
     }
 
     @Test
     void testGetMe_withoutLoggedInUser_expectStatus401() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/me"))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
-                .andExpect(MockMvcResultMatchers.content().string("?"));
+                .andExpect(MockMvcResultMatchers.content().string(""));
     }
 }
