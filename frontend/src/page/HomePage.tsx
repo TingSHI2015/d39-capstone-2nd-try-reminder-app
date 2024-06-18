@@ -13,7 +13,6 @@ export default function HomePage(props: HomePageProps){
         axios.get("/logout")
             .then(()=>{navigate("/login")})
             .catch(error => console.error("Logout failed",error))
-            .finally(()=>console.log(("finally-logout")))
     }
 
 

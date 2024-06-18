@@ -18,16 +18,15 @@ function App() {
     const getUser = () => {
         axios.get("/api/auth/me")
             .then(response =>{
+                setUser(response.data);
                 if(!response.data){
                     navigate("/login");
                 }
                 else{
                     navigate("/");
                 }
-                setUser(response.data);
             })
-            .catch(()=> {navigate("/login")})   //Redirect to "/login"  if not authenticated
-            .finally(() => console.log("finally-getUser"))
+            .catch(()=> {navigate("/login")})
     }
 
 
