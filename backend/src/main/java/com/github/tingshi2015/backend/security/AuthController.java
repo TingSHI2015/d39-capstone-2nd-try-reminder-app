@@ -17,6 +17,4 @@ public class AuthController {
 //        return user.getAttributes().get("login").toString();
         return user != null ? user.getAttributes().get("login").toString() : null;
     }
-
-
 }
