@@ -7,7 +7,7 @@ export default function HomePage(){
     const navigate = useNavigate();
 
     useEffect(() => {
-            axios.get("api/auth/me")
+            axios.get("/api/auth/me")
                 .then(response =>{setUser(response.data)})
                 .catch(()=> {navigate("/login")})   //Redirect to "/login"  if not authenticated
                 .finally(() => console.log("finally-getUser"))
