@@ -1,36 +1,25 @@
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import "./HomePage.css"
+import Header from "../components/Header.tsx";
+import ReminderGallery from "../components/ReminderGallery.tsx";
+import {ReminderDTO} from "../types/ReminderDTO.ts";
 
 type HomePageProps = {
-    user: string | null | undefined
+    user: string | null | undefined,
+    reminders: ReminderDTO[],
 }
 
-export default function HomePage(props: HomePageProps){
+export default function HomePage(props: Readonly<HomePageProps>){
 
-    const navigate = useNavigate();
 
-    const logout = () => {
-        axios.get("/logout")
-            .then(()=>{navigate("/login")})
-            .catch(error => console.error("Logout failed",error))
-    }
 
 
     return(
-        <>
-            {
-                props.user ? (
-                    <div>
-                        <h3>Welcome, {props.user}</h3>
-                        <button onClick={logout}>Logout</button>
-                    </div>
-                ) : (
-                    <p>Loading...</p>
-                )
-            }
+        <div className="homepage">
+           <Header user={props.user} />
+           <ReminderGallery reminders={props.reminders}/>
 
 
-        </>
+        </div>
     )
 
 }

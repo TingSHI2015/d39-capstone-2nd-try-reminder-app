@@ -1,0 +1,13 @@
+.reminder-card{
+    width: 370px;
+    height:10px;
+    border: 1px solid #535bf2;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+
+}
