@@ -32,13 +32,24 @@ function App() {
                     navigate("/");
                 }
             })
-            .catch(()=> {navigate("/login")})
+            .catch(error => console.error("Error getUser", error))
     }
 
     const getAllReminders = () =>{
         axios.get("api/reminders")
             .then(response => setReminders(response.data))
-            .catch(error => console.error("Error get all Reminders", error))
+            .catch(error => console.error("Error getting all Reminders", error))
+    }
+
+    const saveAReminder = (newReminder: ReminderDTO) => {
+        axios.post("api/reminders", newReminder)
+            .then(response => {
+                setReminders([...reminders, response.data])
+            })
+            .catch(error => console.error("Error saving a Reminder!", error))
+            .finally(() => {
+                console.log("saveReminder_successful")
+            })
     }
 
 
@@ -49,7 +60,7 @@ function App() {
               <Route path="/login" element={<LoginPage/>}/>
 
               <Route element={<ProtectedRoute user={user} />}>
-                  <Route path="/" element={<HomePage user={user} reminders={reminders}/>}/>
+                  <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder}/>}/>
               </Route>
 
           </Routes>
