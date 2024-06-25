@@ -5,12 +5,12 @@ import LoginPage from "./page/LoginPage.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {ReminderDTO} from "./types/ReminderDTO.ts";
+import {Reminder} from "./types/Reminder.ts";
 
 function App() {
     const [user, setUser] = useState<string | null | undefined>(undefined);
     const navigate = useNavigate();
-    const [reminders, setReminders] = useState<ReminderDTO[]>([]);
+    const [reminders, setReminders] = useState<Reminder[]>([]);
 
     useEffect(() => {
         getUser()
@@ -32,13 +32,24 @@ function App() {
                     navigate("/");
                 }
             })
-            .catch(()=> {navigate("/login")})
+            .catch(error => console.error("Error getUser", error))
     }
 
     const getAllReminders = () =>{
         axios.get("api/reminders")
             .then(response => setReminders(response.data))
-            .catch(error => console.error("Error get all Reminders", error))
+            .catch(error => console.error("Error getting all Reminders", error))
+    }
+
+    const saveAReminder = (newReminder: Reminder) => {
+        axios.post("api/reminders", newReminder)
+            .then(response => {
+                setReminders([...reminders, response.data])
+            })
+            .catch(error => console.error("Error saving a Reminder!", error))
+            .finally(() => {
+                console.log("saveReminder_successful")
+            })
     }
 
 
@@ -49,7 +60,7 @@ function App() {
               <Route path="/login" element={<LoginPage/>}/>
 
               <Route element={<ProtectedRoute user={user} />}>
-                  <Route path="/" element={<HomePage user={user} reminders={reminders}/>}/>
+                  <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder}/>}/>
               </Route>
 
           </Routes>

@@ -1,4 +1,4 @@
-package com.github.tingshi2015.backend;
+package com.github.tingshi2015.backend.reminder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

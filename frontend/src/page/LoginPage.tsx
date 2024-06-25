@@ -1,3 +1,4 @@
+import "./LoginPage.css"
 
 export default function LoginPage(){
     const login = () =>{
@@ -10,8 +11,11 @@ export default function LoginPage(){
     }
 
     return(
-        <div>
-            <button onClick={login}>Login with GitHub</button>
+        <div className="login-page">
+
+                <button onClick={login}>Login with GitHub</button>
+
         </div>
+
     )
 }
