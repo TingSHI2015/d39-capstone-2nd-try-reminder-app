@@ -51,4 +51,21 @@ class ReminderServiceTest {
         assertEquals(reminderToSave, actual);
 
     }
+
+
+    @Test
+    void deleteAReminder_shouldInvokeRepositoryDeleteById() {
+        //GIVEN
+        String id = "id1";
+        doNothing().when(reminderRepository).deleteById(id);
+
+        //WHEN
+        reminderService.deleteAReminder(id);
+
+        //THEN
+        verify(reminderRepository).deleteById(id);
+    }
+
+
+
 }

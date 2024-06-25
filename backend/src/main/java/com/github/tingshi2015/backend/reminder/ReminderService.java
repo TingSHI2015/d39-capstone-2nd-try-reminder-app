@@ -29,4 +29,8 @@ public class ReminderService {
         Reminder reminderToRepo = convertToEntity(reminderDTO);
         return reminderRepository.save(reminderToRepo);
     }
+
+    public void deleteAReminder(String id) {
+        reminderRepository.deleteById(id);
+    }
 }
