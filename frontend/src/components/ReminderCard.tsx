@@ -1,9 +1,9 @@
 import "./ReminderCard.css"
-import {ReminderDTO} from "../types/ReminderDTO.ts";
+import {Reminder} from "../types/Reminder.ts";
 
 type ReminderCardProps = {
-    reminder: ReminderDTO
-}
+    reminder: Reminder
+};
 
 export default function ReminderCard(props: Readonly<ReminderCardProps>){
 

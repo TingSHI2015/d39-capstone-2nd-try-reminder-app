@@ -13,13 +13,13 @@ public class ReminderController {
     private final ReminderService reminderService;
 
     @GetMapping
-    public List<ReminderDTO> getAllReminders(){
+    public List<Reminder> getAllReminders(){
         return reminderService.getAllReminders();
     }
 
 
     @PostMapping
-    public ReminderDTO postAReminder(@RequestBody ReminderDTO reminderDTO){
+    public Reminder postAReminder(@RequestBody ReminderDTO reminderDTO){
         return reminderService.createAReminder(reminderDTO);
     }
 

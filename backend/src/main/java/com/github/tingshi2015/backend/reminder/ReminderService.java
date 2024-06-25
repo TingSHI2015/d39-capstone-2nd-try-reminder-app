@@ -22,15 +22,12 @@ public class ReminderService {
         return new Reminder(id, reminderDTO.name(),reminderDTO.time(),reminderDTO.date());
     }
 
-    public List<ReminderDTO> getAllReminders() {
-        return reminderRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public List<Reminder> getAllReminders() {
+        return reminderRepository.findAll();
     }
 
-    public ReminderDTO createAReminder(ReminderDTO reminderDTO) {
+    public Reminder createAReminder(ReminderDTO reminderDTO) {
         Reminder reminderToRepo = convertToEntity(reminderDTO);
-        Reminder reminderFromRepo = reminderRepository.save(reminderToRepo);
-        return convertToDTO(reminderFromRepo);
+        return reminderRepository.save(reminderToRepo);
     }
 }

@@ -1,24 +1,24 @@
 import "./ReminderGallery.css"
-import {ReminderDTO} from "../types/ReminderDTO.ts";
 import ReminderCard from "./ReminderCard.tsx";
 import {ChangeEvent, FormEvent, useState} from "react";
+import {Reminder} from "../types/Reminder.ts";
 
 type ReminderGalleryProps = {
-    reminders: ReminderDTO[],
-    saveAReminder: (newReminder: ReminderDTO) => void,
+    reminders: Reminder[],
+    saveAReminder: (newReminder: Reminder) => void,
 
 }
 
 export default function ReminderGallery(props: Readonly<ReminderGalleryProps>){
     const cards = props.reminders
-        .map(reminder => <ReminderCard reminder={reminder} key={reminder.name}/>)
+        .map(reminder => <ReminderCard reminder={reminder} key={reminder.id}/>)
 
-    const [newReminder, setNewReminder] = useState<ReminderDTO>({name: "", time: "", date: ""});
+    const [newReminder, setNewReminder] = useState<Reminder>({id: "", name: "", time: "", date: ""});
 
     const handleNewReminderSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         props.saveAReminder(newReminder);
-        setNewReminder({name:"", time:"", date:""});
+        setNewReminder({id: "", name:"", time:"", date:""});
     };
 
     const onNewReminderChange = (event: ChangeEvent<HTMLInputElement>) =>{
