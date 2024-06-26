@@ -76,9 +76,7 @@ class ReminderServiceTest {
         when(reminderRepository.existsById(id)).thenReturn(false);
 
         //WHEN
-        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
-            reminderService.deleteAReminder(id);
-        });
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> reminderService.deleteAReminder(id));
 
         //THEN
         assertEquals("Reminder with id: " + id + " not found", exception.getMessage());
