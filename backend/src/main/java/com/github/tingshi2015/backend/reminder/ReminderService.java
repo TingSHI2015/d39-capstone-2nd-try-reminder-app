@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,9 @@ public class ReminderService {
     }
 
     public void deleteAReminder(String id) {
+        if (!reminderRepository.existsById(id)){
+            throw new NoSuchElementException("Reminder with id: " + id + " not found");
+        }
         reminderRepository.deleteById(id);
     }
 }

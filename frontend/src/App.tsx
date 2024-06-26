@@ -52,6 +52,17 @@ function App() {
             })
     }
 
+    const deleteAReminder = (id: string) => {
+        axios.delete(`api/reminders/${id}`)
+            .then(() => {
+                setReminders(reminders.filter(reminder => reminder.id !== id));
+            })
+            .catch(error => console.error("Error deleting a Reminder!", error))
+            .finally(()=>{
+                console.log("deleteReminder_successful")
+            })
+    }
+
 
 
   return (
@@ -60,7 +71,7 @@ function App() {
               <Route path="/login" element={<LoginPage/>}/>
 
               <Route element={<ProtectedRoute user={user} />}>
-                  <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder}/>}/>
+                  <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder} deleteAReminder={deleteAReminder}/>}/>
               </Route>
 
           </Routes>

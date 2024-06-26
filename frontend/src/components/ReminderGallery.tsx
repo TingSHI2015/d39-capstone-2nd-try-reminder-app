@@ -6,12 +6,13 @@ import {Reminder} from "../types/Reminder.ts";
 type ReminderGalleryProps = {
     reminders: Reminder[],
     saveAReminder: (newReminder: Reminder) => void,
+    deleteAReminder: (id: string) => void,
 
 }
 
 export default function ReminderGallery(props: Readonly<ReminderGalleryProps>){
     const cards = props.reminders
-        .map(reminder => <ReminderCard reminder={reminder} key={reminder.id}/>)
+        .map(reminder => <ReminderCard reminder={reminder} key={reminder.id} deleteAReminder={props.deleteAReminder}/>)
 
     const [newReminder, setNewReminder] = useState<Reminder>({id: "", name: "", time: "", date: ""});
 
