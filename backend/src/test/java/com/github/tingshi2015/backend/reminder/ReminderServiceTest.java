@@ -50,7 +50,6 @@ class ReminderServiceTest {
         verify(idService).randomId();
         verify(reminderRepository).save(reminderToSave);
         assertEquals(reminderToSave, actual);
-
     }
 
 
@@ -81,6 +80,41 @@ class ReminderServiceTest {
         //THEN
         assertEquals("Reminder with id: " + id + " not found", exception.getMessage());
         verify(reminderRepository, never()).deleteById(id);
+    }
+
+    @Test
+    void updateAReminder_withValidId(){
+        //GIVEN
+        String id = "id2";
+        ReminderDTO updateReminder = new ReminderDTO("name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));
+        Reminder reminderToUpdate = new Reminder("id2", "name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));
+
+        when(reminderRepository.existsById(id)).thenReturn(true);
+        when(reminderRepository.save(reminderToUpdate)).thenReturn(reminderToUpdate);
+
+        //WHEN
+        Reminder actual = reminderService.updateAReminder(updateReminder, id);
+
+        //THEN
+        verify(reminderRepository).existsById(id);
+        verify(reminderRepository).save(reminderToUpdate);
+        assertEquals(reminderToUpdate, actual);
+    }
+
+    @Test
+    void  updateAReminder_withInvalidId(){
+        //GIVEN
+        String id = "id2";
+        ReminderDTO updateReminder = new ReminderDTO("name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));
+
+        when(reminderRepository.existsById(id)).thenReturn(false);
+
+        //WHEN
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> reminderService.updateAReminder(updateReminder, id));
+
+        //THEN
+        verify(reminderRepository, never()).save(any(Reminder.class));
+        assertEquals("Reminder with id: " + id + " not found. Can't update!", exception.getMessage());
     }
 
 }

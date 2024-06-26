@@ -28,8 +28,8 @@ public class ReminderController {
     }
 
     @PutMapping("{id}")
-    public Reminder putReminder(@RequestBody ReminderDTO updateReminder, @PathVariable String id){
-        return reminderService.updateReminder(updateReminder, id);
+    public Reminder putAReminder(@RequestBody ReminderDTO updateReminder, @PathVariable String id){
+        return reminderService.updateAReminder(updateReminder, id);
     }
 
 }

@@ -38,7 +38,7 @@ public class ReminderService {
         reminderRepository.deleteById(id);
     }
 
-    public Reminder updateReminder(ReminderDTO updateReminder, String id) {
+    public Reminder updateAReminder(ReminderDTO updateReminder, String id) {
         if(!reminderRepository.existsById(id)){
             throw new NoSuchElementException("Reminder with id: " + id + " not found. Can't update!");
         }
