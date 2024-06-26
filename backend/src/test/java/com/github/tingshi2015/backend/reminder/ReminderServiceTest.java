@@ -85,6 +85,4 @@ class ReminderServiceTest {
         verify(reminderRepository, never()).deleteById(id);
     }
 
-
-
 }
