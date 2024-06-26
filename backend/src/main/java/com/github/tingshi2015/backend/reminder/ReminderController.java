@@ -17,10 +17,14 @@ public class ReminderController {
         return reminderService.getAllReminders();
     }
 
-
     @PostMapping
     public Reminder postAReminder(@RequestBody ReminderDTO reminderDTO){
         return reminderService.createAReminder(reminderDTO);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteAReminder(@PathVariable String id){
+        reminderService.deleteAReminder(id);
     }
 
 }

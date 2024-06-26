@@ -8,6 +8,8 @@ type HomePageProps = {
     user: string | null | undefined,
     reminders: Reminder[],
     saveAReminder: (newReminder: Reminder) => void,
+    deleteAReminder: (id: string) => void,
+
 }
 
 export default function HomePage(props: Readonly<HomePageProps>){
@@ -19,7 +21,7 @@ export default function HomePage(props: Readonly<HomePageProps>){
     return(
         <div className="homepage">
             <Header user={props.user} />
-            <ReminderGallery reminders={props.reminders} saveAReminder={props.saveAReminder}/>
+            <ReminderGallery reminders={props.reminders} saveAReminder={props.saveAReminder} deleteAReminder={props.deleteAReminder}/>
 
 
 

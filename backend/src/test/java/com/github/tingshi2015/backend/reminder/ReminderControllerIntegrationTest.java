@@ -13,8 +13,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class ReminderControllerIntegrationTest {
@@ -88,7 +86,18 @@ class ReminderControllerIntegrationTest {
                         }
                         """))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
+    }
 
+    @Test
+    @DirtiesContext
+    void deleteAReminderById() throws Exception {
+        //GIVEN
+        Reminder existingReminder = new Reminder("id1", "name1", LocalTime.of(23, 56, 59), LocalDate.of(2029, 12, 30));
+        reminderRepository.save(existingReminder);
 
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/api/reminders/id1"))
+                //THEN
+                .andExpect((MockMvcResultMatchers.status().isOk()));
     }
 }
