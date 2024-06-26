@@ -33,8 +33,16 @@ public class ReminderService {
 
     public void deleteAReminder(String id) {
         if (!reminderRepository.existsById(id)){
-            throw new NoSuchElementException("Reminder with id: " + id + " not found");
+            throw new NoSuchElementException("Reminder with id: " + id + " not found. Can't delete!");
         }
         reminderRepository.deleteById(id);
+    }
+
+    public Reminder updateReminder(ReminderDTO updateReminder, String id) {
+        if(!reminderRepository.existsById(id)){
+            throw new NoSuchElementException("Reminder with id: " + id + " not found. Can't update!");
+        }
+        Reminder reminderToUpdate = new Reminder(id, updateReminder.name(), updateReminder.time(), updateReminder.date());
+        return reminderRepository.save(reminderToUpdate);
     }
 }

@@ -6,6 +6,7 @@ import ProtectedRoute from "./ProtectedRoute.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Reminder} from "./types/Reminder.ts";
+import {ReminderDTO} from "./types/ReminderDTO.ts";
 
 function App() {
     const [user, setUser] = useState<string | null | undefined>(undefined);
@@ -63,6 +64,15 @@ function App() {
             })
     }
 
+    const updateAReminder = (id: string, updateReminder: ReminderDTO) => {
+        axios.put(`api/reminders/${id}`, updateReminder)
+            .then(response => {
+                setReminders(reminders.map(reminder => (reminder.id === id ? response.data : reminder)));
+            })
+            .catch(error => console.error("Error updating a Reminder", error))
+            .finally(() => {console.log("updatingReminder_successful")})
+    }
+
 
 
   return (
@@ -71,7 +81,7 @@ function App() {
               <Route path="/login" element={<LoginPage/>}/>
 
               <Route element={<ProtectedRoute user={user} />}>
-                  <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder} deleteAReminder={deleteAReminder}/>}/>
+                  <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder} deleteAReminder={deleteAReminder} updateAReminder={updateAReminder}/>}/>
               </Route>
 
           </Routes>

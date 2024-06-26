@@ -27,4 +27,9 @@ public class ReminderController {
         reminderService.deleteAReminder(id);
     }
 
+    @PutMapping("{id}")
+    public Reminder putReminder(@RequestBody ReminderDTO updateReminder, @PathVariable String id){
+        return reminderService.updateReminder(updateReminder, id);
+    }
+
 }

@@ -1,6 +1,5 @@
 .reminder-card{
-    width: 370px;
-    height:10px;
+    max-width: 370px;
     border: 1px solid #e1dfdf;
     border-radius: 5px;
     background-color: aliceblue;
@@ -8,7 +7,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
     padding: 20px;
     margin-bottom: 1px;
+    gap: 10px;
 
 }
