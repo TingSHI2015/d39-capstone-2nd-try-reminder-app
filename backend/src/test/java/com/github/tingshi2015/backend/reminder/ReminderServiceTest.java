@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -57,13 +58,31 @@ class ReminderServiceTest {
     void deleteAReminder_shouldInvokeRepositoryDeleteById() {
         //GIVEN
         String id = "id1";
+        when(reminderRepository.existsById(id)).thenReturn(true);
         doNothing().when(reminderRepository).deleteById(id);
 
         //WHEN
         reminderService.deleteAReminder(id);
 
         //THEN
+        verify(reminderRepository).existsById(id);
         verify(reminderRepository).deleteById(id);
+    }
+
+    @Test
+    void deleteAReminder_shouldThrowException_whenIdDoesNotExist() {
+        //GIVEN
+        String id = "nonExistent-Id";
+        when(reminderRepository.existsById(id)).thenReturn(false);
+
+        //WHEN
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            reminderService.deleteAReminder(id);
+        });
+
+        //THEN
+        assertEquals("Reminder with id: " + id + " not found", exception.getMessage());
+        verify(reminderRepository, never()).deleteById(id);
     }
 
 
