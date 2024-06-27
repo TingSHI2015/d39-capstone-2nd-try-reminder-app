@@ -54,7 +54,7 @@ class ReminderServiceTest {
 
 
     @Test
-    void deleteAReminder_shouldInvokeRepositoryDeleteById() {
+    void deleteAReminder_shouldInvokeRepositoryDeleteById_withValidId() {
         //GIVEN
         String id = "id1";
         when(reminderRepository.existsById(id)).thenReturn(true);
@@ -78,7 +78,7 @@ class ReminderServiceTest {
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> reminderService.deleteAReminder(id));
 
         //THEN
-        assertEquals("Reminder with id: " + id + " not found", exception.getMessage());
+        assertEquals("Reminder with id: " + id + " not found. Can't delete!", exception.getMessage());
         verify(reminderRepository, never()).deleteById(id);
     }
 
@@ -102,7 +102,7 @@ class ReminderServiceTest {
     }
 
     @Test
-    void  updateAReminder_withInvalidId(){
+    void  updateAReminder_withInvalidId_shouldThrowException(){
         //GIVEN
         String id = "id2";
         ReminderDTO updateReminder = new ReminderDTO("name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));

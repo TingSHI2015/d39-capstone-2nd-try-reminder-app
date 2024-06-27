@@ -9,6 +9,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +25,8 @@ class ReminderControllerIntegrationTest {
 
     @Autowired
     ReminderRepository reminderRepository;
+
+
 
     @Test
     void getAllReminders_shouldReturnEmptyList_whenRepositoryIsEmpty() throws Exception {
@@ -100,4 +105,35 @@ class ReminderControllerIntegrationTest {
                 //THEN
                 .andExpect((MockMvcResultMatchers.status().isOk()));
     }
+
+    @Test
+    @DirtiesContext
+    void putAReminder() throws Exception {
+        //GIVEN
+        Reminder reminder = new Reminder("id2", "name2", LocalTime.of(23, 56, 59), LocalDate.of(2029, 12, 30));
+        reminderRepository.save(reminder);
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/reminders/id2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "nameUpdated",
+                        "time": "22:00:00",
+                        "date": "2024-06-27"
+                        }
+                        """))
+                //THEN
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                        "id": "id2",
+                        "name": "nameUpdated",
+                        "time": "22:00:00",
+                        "date": "2024-06-27"
+                        }
+                        """));
+
+    }
+
 }
