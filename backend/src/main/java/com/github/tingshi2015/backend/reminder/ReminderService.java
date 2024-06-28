@@ -45,4 +45,9 @@ public class ReminderService {
         Reminder reminderToUpdate = new Reminder(id, updateReminder.name(), updateReminder.time(), updateReminder.date());
         return reminderRepository.save(reminderToUpdate);
     }
+
+//    public Reminder getReminderById(String id) {
+//        return reminderRepository.findById(id)
+//                .orElseThrow(()-> new NoSuchElementException("Reminder with id: " + id + " not found. Can't getReminderById"));
+//    }
 }
