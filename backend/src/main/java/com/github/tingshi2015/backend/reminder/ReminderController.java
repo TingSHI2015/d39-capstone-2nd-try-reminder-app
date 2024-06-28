@@ -32,4 +32,9 @@ public class ReminderController {
         return reminderService.updateAReminder(updateReminder, id);
     }
 
+//    @GetMapping("{id}")
+//    public Reminder getReminderById(@PathVariable String id){
+//        return reminderService.getReminderById(id);
+//    }
+
 }

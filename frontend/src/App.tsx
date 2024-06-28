@@ -74,8 +74,7 @@ function App() {
     }
 
 
-
-  return (
+    return (
       <div className="app-container">
           <Routes>
               <Route path="/login" element={<LoginPage/>}/>
