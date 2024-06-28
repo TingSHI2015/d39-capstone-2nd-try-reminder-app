@@ -50,12 +50,11 @@ class ReminderServiceTest {
         verify(idService).randomId();
         verify(reminderRepository).save(reminderToSave);
         assertEquals(reminderToSave, actual);
-
     }
 
 
     @Test
-    void deleteAReminder_shouldInvokeRepositoryDeleteById() {
+    void deleteAReminder_shouldInvokeRepositoryDeleteById_withValidId() {
         //GIVEN
         String id = "id1";
         when(reminderRepository.existsById(id)).thenReturn(true);
@@ -79,8 +78,43 @@ class ReminderServiceTest {
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> reminderService.deleteAReminder(id));
 
         //THEN
-        assertEquals("Reminder with id: " + id + " not found", exception.getMessage());
+        assertEquals("Reminder with id: " + id + " not found. Can't delete!", exception.getMessage());
         verify(reminderRepository, never()).deleteById(id);
+    }
+
+    @Test
+    void updateAReminder_withValidId(){
+        //GIVEN
+        String id = "id2";
+        ReminderDTO updateReminder = new ReminderDTO("name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));
+        Reminder reminderToUpdate = new Reminder("id2", "name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));
+
+        when(reminderRepository.existsById(id)).thenReturn(true);
+        when(reminderRepository.save(reminderToUpdate)).thenReturn(reminderToUpdate);
+
+        //WHEN
+        Reminder actual = reminderService.updateAReminder(updateReminder, id);
+
+        //THEN
+        verify(reminderRepository).existsById(id);
+        verify(reminderRepository).save(reminderToUpdate);
+        assertEquals(reminderToUpdate, actual);
+    }
+
+    @Test
+    void  updateAReminder_withInvalidId_shouldThrowException(){
+        //GIVEN
+        String id = "id2";
+        ReminderDTO updateReminder = new ReminderDTO("name2", LocalTime.of(3,45, 0), LocalDate.of(2027, 1, 2));
+
+        when(reminderRepository.existsById(id)).thenReturn(false);
+
+        //WHEN
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> reminderService.updateAReminder(updateReminder, id));
+
+        //THEN
+        verify(reminderRepository, never()).save(any(Reminder.class));
+        assertEquals("Reminder with id: " + id + " not found. Can't update!", exception.getMessage());
     }
 
 }
