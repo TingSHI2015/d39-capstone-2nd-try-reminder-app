@@ -23,27 +23,29 @@ export default function HomePage(props: Readonly<HomePageProps>){
     }
 
     const filteredReminders = props.reminders.filter(
-        reminder => reminder.name.toLowerCase().includes(query.toLowerCase())
-            || reminder.time.toLowerCase().includes(query.toLowerCase())
-            || reminder.date.toLowerCase().includes(query.toLowerCase())
+        reminder =>
+            reminder.name.toLowerCase().includes(query.toLowerCase()) ||
+            reminder.time.toLowerCase().includes(query.toLowerCase()) ||
+            reminder.date.toLowerCase().includes(query.toLowerCase())
     )
 
 
     return(
         <div className="homepage">
-            <Header user={props.user}/>
+            <Header user={props.user} query={query} onSearchChange={handleSearchChange}/>
 
             <div>
-                <input onChange={handleSearchChange} type="text" placeholder="Search for a reminder" value={query}/>
                 {
                     filteredReminders.length > 0 ?
-                        <ReminderGallery reminders={filteredReminders} saveAReminder={props.saveAReminder}
-                                         deleteAReminder={props.deleteAReminder} updateAReminder={props.updateAReminder}/>
-                        : <p>No Reminders found</p>
+                        <ReminderGallery
+                            reminders={filteredReminders}
+                            saveAReminder={props.saveAReminder}
+                            deleteAReminder={props.deleteAReminder}
+                            updateAReminder={props.updateAReminder}
+                        /> :
+                        <p>No Reminders found</p>
                 }
             </div>
-
-
 
             <Footer/>
 

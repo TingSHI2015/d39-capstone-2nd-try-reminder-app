@@ -3,7 +3,8 @@
     flex: 0 0 auto;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
     background-color: lavender;
     border: 1px solid #242424;
     border-radius: 15px;
