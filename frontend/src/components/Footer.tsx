@@ -1,12 +1,18 @@
 import "./Footer.css"
+import {useNavigate} from "react-router-dom";
 
 export default function Footer(){
+    const navigate = useNavigate();
 
+    const handleTipsClick = () => {
+        navigate("/api/tips/")
+    }
 
     return(
         <div className="footer">
-            <h3>Tipps</h3>
-
+            <button onClick={handleTipsClick}>
+                Tips
+            </button>
         </div>
 
         )

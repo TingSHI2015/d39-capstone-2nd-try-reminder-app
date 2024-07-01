@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Reminder} from "./types/Reminder.ts";
 import {ReminderDTO} from "./types/ReminderDTO.ts";
+import TipsPage from "./page/TipsPage.tsx";
 
 function App() {
     const [user, setUser] = useState<string | null | undefined>(undefined);
@@ -81,6 +82,7 @@ function App() {
 
               <Route element={<ProtectedRoute user={user} />}>
                   <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder} deleteAReminder={deleteAReminder} updateAReminder={updateAReminder}/>}/>
+                  <Route path="/api/tips" element={<TipsPage />} />
               </Route>
 
           </Routes>

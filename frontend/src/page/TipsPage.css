@@ -1,0 +1,9 @@
+.tips-page{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.default-tips{
+    display: flex;
+}
