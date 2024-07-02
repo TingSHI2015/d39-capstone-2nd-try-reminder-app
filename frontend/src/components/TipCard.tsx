@@ -15,7 +15,6 @@ type TipCardProps = {
 
 export default function TipCard(props: Readonly<TipCardProps>){
     const [showAddAReminder, setShowAddAReminder] = useState<boolean>(false);
-
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [updatedTip, setUpdatedTip] = useState<Tip>(props.tip);
 
@@ -23,9 +22,9 @@ export default function TipCard(props: Readonly<TipCardProps>){
         setShowAddAReminder(true)
     }
 
-    // const handleCloseAddAReminder = () => {
-    //     setShowAddAReminder(false)
-    // }
+    const handleCloseAddAReminder = () => {
+        setShowAddAReminder(false)
+    }
 
     const handleSaveAReminder = (newReminder: Reminder) => {
         props.handelSaveAReminder(newReminder)
@@ -67,7 +66,7 @@ export default function TipCard(props: Readonly<TipCardProps>){
                     <h3>{props.tip.content}</h3>
 
                     <button onClick={handleClickAddTipToReminder}>
-                        Add to Reminder
+                        Add to my Reminder
                     </button>
 
                     <button onClick={handleClickEdit}>
@@ -83,7 +82,7 @@ export default function TipCard(props: Readonly<TipCardProps>){
                             <AddAReminder
                                 saveAReminder={handleSaveAReminder}
                                 initialName={props.tip.content}
-                                // onClose={handleCloseAddAReminder}
+                                onClose={handleCloseAddAReminder}
                             />
                         )}
 

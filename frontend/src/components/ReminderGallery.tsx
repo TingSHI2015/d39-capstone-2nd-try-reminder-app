@@ -2,11 +2,10 @@ import "./ReminderGallery.css"
 import ReminderCard from "./ReminderCard.tsx";
 import {Reminder} from "../types/Reminder.ts";
 import {ReminderDTO} from "../types/ReminderDTO.ts";
-import AddAReminder from "./AddAReminder.tsx";
 
 type ReminderGalleryProps = {
     reminders: Reminder[],
-    saveAReminder: (newReminder: Reminder) => void,
+    // saveAReminder: (newReminder: Reminder) => void,
     deleteAReminder: (id: string) => void,
     updateAReminder:(id: string, updateAReminder: ReminderDTO) => void,
 }
@@ -25,9 +24,6 @@ export default function ReminderGallery(props: Readonly<ReminderGalleryProps>){
         <div className="reminder-gallery">
             <h3>Your Reminders:</h3>
             {cards}
-            {/*<AddAReminder saveAReminder={props.saveAReminder} initialName="" onClose={() => true}/>*/}
-            <AddAReminder saveAReminder={props.saveAReminder} initialName="" />
-
         </div>
     )
 
