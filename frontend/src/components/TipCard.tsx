@@ -7,27 +7,28 @@ import AddAReminder from "./AddAReminder.tsx";
 
 type TipCardProps = {
     tip: Tip,
-    saveAReminder: (newReminder: Reminder) => void,
-    deleteATip: (id: string) => void,
-    updateATip: (id: string, updateATip: TipDTO) => void,
+    handelSaveAReminder: (newReminder: Reminder) => void,
+    handleDeleteATip: (id: string) => void,
+    handleUpdateATip: (id: string, updateATip: TipDTO) => void,
 };
+
 
 export default function TipCard(props: Readonly<TipCardProps>){
     const [showAddAReminder, setShowAddAReminder] = useState<boolean>(false);
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [updateTip, setUpdateTip] = useState<Tip>(props.tip);
+    const [updatedTip, setUpdatedTip] = useState<Tip>(props.tip);
 
     const handleClickAddTipToReminder = () => {
         setShowAddAReminder(true)
     }
 
-    const handleCloseAddAReminder = () => {
-        setShowAddAReminder(false)
-    }
+    // const handleCloseAddAReminder = () => {
+    //     setShowAddAReminder(false)
+    // }
 
     const handleSaveAReminder = (newReminder: Reminder) => {
-        props.saveAReminder(newReminder)
+        props.handelSaveAReminder(newReminder)
         setShowAddAReminder(false)
     }
 
@@ -37,27 +38,27 @@ export default function TipCard(props: Readonly<TipCardProps>){
 
     const handleCancel = () => {
         setIsEditing(false);
-        setUpdateTip(props.tip);
+        setUpdatedTip(props.tip);
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setUpdateTip({...updateTip, [event.target.name]: event.target.value})
+        setUpdatedTip({...updatedTip, [event.target.name]: event.target.value})
     }
 
     const handleSave = () => {
-        props.updateATip(props.tip.id, updateTip);
+        props.handleUpdateATip(props.tip.id, updatedTip);
         setIsEditing(false);
     }
 
     const handleDelete = () => {
-        props.deleteATip(props.tip.id);
+        props.handleDeleteATip(props.tip.id);
     }
 
     return(
         <div className="tip-card">
             {isEditing ? (
                 <div>
-                    <input type="text" name = "content" value = {updateTip.content} onChange={handleChange} />
+                    <input type="text" name = "content" value = {updatedTip.content} onChange={handleChange} />
                     <button onClick={handleSave}>Save</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </div>
@@ -82,7 +83,7 @@ export default function TipCard(props: Readonly<TipCardProps>){
                             <AddAReminder
                                 saveAReminder={handleSaveAReminder}
                                 initialName={props.tip.content}
-                                onClose={handleCloseAddAReminder}
+                                // onClose={handleCloseAddAReminder}
                             />
                         )}
 

@@ -12,6 +12,7 @@ type ReminderGalleryProps = {
 }
 
 export default function ReminderGallery(props: Readonly<ReminderGalleryProps>){
+
     const cards = props.reminders
         .map(reminder => <ReminderCard
             reminder={reminder}
@@ -24,7 +25,8 @@ export default function ReminderGallery(props: Readonly<ReminderGalleryProps>){
         <div className="reminder-gallery">
             <h3>Your Reminders:</h3>
             {cards}
-            <AddAReminder saveAReminder={props.saveAReminder} initialName=""/>
+            {/*<AddAReminder saveAReminder={props.saveAReminder} initialName="" onClose={() => true}/>*/}
+            <AddAReminder saveAReminder={props.saveAReminder} initialName="" />
 
         </div>
     )

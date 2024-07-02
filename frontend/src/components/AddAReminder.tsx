@@ -4,7 +4,7 @@ import {Reminder} from "../types/Reminder.ts";
 type AddAReminderProps ={
     saveAReminder: (newReminder: Reminder) => void,
     initialName: string,
-    onClose: () => void
+    // onClose: () => void
 }
 
 export default function AddAReminder(props: Readonly<AddAReminderProps>){
@@ -15,7 +15,7 @@ export default function AddAReminder(props: Readonly<AddAReminderProps>){
         event.preventDefault();
         props.saveAReminder(newReminder);
         setNewReminder({id: "", name:"", time:"", date:""});
-        props.onClose();
+        // props.onClose();
     };
 
     const onNewReminderChange = (event: ChangeEvent<HTMLInputElement>) =>{
@@ -33,9 +33,9 @@ export default function AddAReminder(props: Readonly<AddAReminderProps>){
             <button>
                 Add
             </button>
-            <button onClick={props.onClose}>
+{/*            <button onClick={props.onClose}>
                 Cancel
-            </button>
+            </button>*/}
         </form>
     )
 }

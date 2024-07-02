@@ -40,13 +40,13 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
 
 
     const  deleteATip = (id: string) => {
-        axios.delete(`api/tips/${id}`)
+        axios.delete(`/api/tips/${id}`)
             .then(() =>  setTips(tips.filter(tip => tip.id !== id)))
             .catch(error => console.error("Error deleting a tip", error))
     }
 
     const updateATip = (id: string, updateTip: TipDTO) => {
-        axios.put(`api/tips/${id}`, updateTip)
+        axios.put(`/api/tips/${id}`, updateTip)
             .then(response => {
                 setTips(tips.map(tip => (tip.id === id ? response.data : tip)));
             })
@@ -66,9 +66,9 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
                         <TipCard
                             key={tip.id}
                             tip={tip}
-                            saveAReminder={props.saveAReminder}
-                            deleteATip={deleteATip}
-                            updateATip={updateATip}
+                            handelSaveAReminder={props.saveAReminder}
+                            handleDeleteATip={deleteATip}
+                            handleUpdateATip={updateATip}
                         />
                     ))
                 }
