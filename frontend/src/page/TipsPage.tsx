@@ -5,6 +5,7 @@ import {Tip} from "../types/Tip.ts";
 import {TipDTO} from "../types/TipDTO.ts";
 import TipCard from "../components/TipCard.tsx";
 import {Reminder} from "../types/Reminder.ts";
+import {useNavigate} from "react-router-dom";
 
 type TipsPageProps = {
     saveAReminder: (newReminder: Reminder) => void,
@@ -13,6 +14,7 @@ type TipsPageProps = {
 export default function TipsPage(props: Readonly<TipsPageProps>) {
     const [tips, setTips] = useState<Tip[]>([]);
     const [newTip, setNewTip] = useState<Tip>({id: "", content: ""});
+    const navigate = useNavigate();
 
     const handleNewTipSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -54,6 +56,10 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
             .finally(() => {console.log("handelUpdatingATip_successful")})
     }
 
+    const navigateHome = () => {
+        navigate("/")
+    }
+
 
     return(
         <div className="tips-page">
@@ -73,16 +79,19 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
                     ))
                 }
 
-
                 <form onSubmit={handleNewTipSubmit}>
                     <input
                         type="text"
                         onChange={onNewTipChange}
                         value={newTip.content}
                         name="content"
-                        placeholder="Add new tip"/>
-                    <button type="submit">Add New Tip</button>
+                        placeholder="Add a new tip"/>
+                    <button type="submit">Add</button>
                 </form>
+
+                <button onClick={navigateHome}>
+                    Home
+                </button>
 
 
             </div>
