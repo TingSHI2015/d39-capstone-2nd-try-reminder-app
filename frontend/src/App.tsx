@@ -82,7 +82,7 @@ function App() {
 
               <Route element={<ProtectedRoute user={user} />}>
                   <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder} deleteAReminder={deleteAReminder} updateAReminder={updateAReminder}/>}/>
-                  <Route path="/api/tips" element={<TipsPage saveAReminder={saveAReminder}/>} />
+                  <Route path="/tips" element={<TipsPage saveAReminder={saveAReminder}/>} />
               </Route>
 
           </Routes>

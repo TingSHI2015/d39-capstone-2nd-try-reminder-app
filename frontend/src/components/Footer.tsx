@@ -5,7 +5,7 @@ export default function Footer(){
     const navigate = useNavigate();
 
     const handleTipsClick = () => {
-        navigate("/api/tips/")
+        navigate("/tips/")
     }
 
     return(
