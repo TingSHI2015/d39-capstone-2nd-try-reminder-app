@@ -22,7 +22,8 @@ public class ReminderScheduler {
         LocalTime now = LocalTime.now().withSecond(0).withNano(0); //ignore second & Nano-second
 
         for (Reminder reminder: reminders){
-            if (reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now)){
+            if(reminder.date() != null && reminder.time() != null &&
+                    reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now)){
                 notificationService.sendNotification(reminder);
             }
         }
