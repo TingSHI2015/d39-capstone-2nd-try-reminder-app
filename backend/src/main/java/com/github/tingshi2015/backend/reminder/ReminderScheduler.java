@@ -4,9 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.management.Notification;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Component

@@ -3,8 +3,6 @@ package com.github.tingshi2015.backend.reminder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @RestController
