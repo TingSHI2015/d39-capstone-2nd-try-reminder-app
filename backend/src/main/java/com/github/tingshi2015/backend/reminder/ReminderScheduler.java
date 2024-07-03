@@ -12,27 +12,12 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ReminderScheduler {
-    private final ReminderRepository reminderRepository;
+    private final ReminderService reminderService;
     private final NotificationService notificationService;
 
     @Scheduled(fixedRate = 60000)   //check every 60 seconds
     public void checkReminders(){
-        List<Reminder> reminders = reminderRepository.findAll();
-        LocalDate today = LocalDate.now();
-        LocalTime now = LocalTime.now().withSecond(0).withNano(0); //ignore second & Nano-second
-
-/*        for (Reminder reminder: reminders){
-            if(reminder.date() != null && reminder.time() != null &&
-                    reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now)){
-                notificationService.sendNotification(reminder);
-            }
-        }*/
-
-        reminders.stream()
-                .filter(reminder -> reminder.date() != null && reminder.time() != null)
-                .filter(reminder -> reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now))
-                .forEach(notificationService::sendNotification);
-
-
+        List<Reminder> upcomingReminders = reminderService.getUpcomingReminders();
+        upcomingReminders.forEach(notificationService::sendNotification);
     }
 }
