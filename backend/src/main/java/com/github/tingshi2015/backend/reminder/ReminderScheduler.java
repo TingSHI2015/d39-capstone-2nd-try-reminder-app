@@ -21,12 +21,17 @@ public class ReminderScheduler {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now().withSecond(0).withNano(0); //ignore second & Nano-second
 
-        for (Reminder reminder: reminders){
+/*        for (Reminder reminder: reminders){
             if(reminder.date() != null && reminder.time() != null &&
                     reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now)){
                 notificationService.sendNotification(reminder);
             }
-        }
+        }*/
+
+        reminders.stream()
+                .filter(reminder -> reminder.date() != null && reminder.time() != null)
+                .filter(reminder -> reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now))
+                .forEach(notificationService::sendNotification);
 
 
     }
