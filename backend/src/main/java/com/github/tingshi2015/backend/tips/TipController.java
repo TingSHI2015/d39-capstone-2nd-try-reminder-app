@@ -1,4 +1,4 @@
-package com.github.tingshi2015.backend.tipps;
+package com.github.tingshi2015.backend.tips;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

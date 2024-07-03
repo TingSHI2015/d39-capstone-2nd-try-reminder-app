@@ -1,4 +1,4 @@
-package com.github.tingshi2015.backend.tipps;
+package com.github.tingshi2015.backend.tips;
 
 import com.github.tingshi2015.backend.reminder.IdService;
 import lombok.RequiredArgsConstructor;
