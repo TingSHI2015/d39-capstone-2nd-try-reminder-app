@@ -6,6 +6,7 @@ import {Reminder} from "../types/Reminder.ts";
 import {ReminderDTO} from "../types/ReminderDTO.ts";
 import {ChangeEvent, useState} from "react";
 import AddAReminder from "../components/AddAReminder.tsx";
+import UpcomingReminderGallery from "../components/UpcomingReminderGallery.tsx";
 
 type HomePageProps = {
     user: string | null | undefined,
@@ -34,6 +35,7 @@ export default function HomePage(props: Readonly<HomePageProps>){
     return(
         <div className="homepage">
             <Header user={props.user} query={query} onSearchChange={handleSearchChange}/>
+            <UpcomingReminderGallery />
 
             <div>
                 {
