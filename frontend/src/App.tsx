@@ -38,13 +38,13 @@ function App() {
     }
 
     const getAllReminders = () =>{
-        axios.get("api/reminders")
+        axios.get("/api/reminders")
             .then(response => setReminders(response.data))
             .catch(error => console.error("Error getting all Reminders", error))
     }
 
     const saveAReminder = (newReminder: Reminder) => {
-        axios.post("api/reminders", newReminder)
+        axios.post("/api/reminders", newReminder)
             .then(response => {
                 setReminders([...reminders, response.data])
             })
@@ -55,7 +55,7 @@ function App() {
     }
 
     const deleteAReminder = (id: string) => {
-        axios.delete(`api/reminders/${id}`)
+        axios.delete(`/api/reminders/${id}`)
             .then(() => {
                 setReminders(reminders.filter(reminder => reminder.id !== id));
             })
@@ -66,7 +66,7 @@ function App() {
     }
 
     const updateAReminder = (id: string, updateReminder: ReminderDTO) => {
-        axios.put(`api/reminders/${id}`, updateReminder)
+        axios.put(`/api/reminders/${id}`, updateReminder)
             .then(response => {
                 setReminders(reminders.map(reminder => (reminder.id === id ? response.data : reminder)));
             })
@@ -82,7 +82,7 @@ function App() {
 
               <Route element={<ProtectedRoute user={user} />}>
                   <Route path="/" element={<HomePage user={user} reminders={reminders} saveAReminder={saveAReminder} deleteAReminder={deleteAReminder} updateAReminder={updateAReminder}/>}/>
-                  <Route path="/api/tips" element={<TipsPage />} />
+                  <Route path="/tips" element={<TipsPage saveAReminder={saveAReminder}/>} />
               </Route>
 
           </Routes>

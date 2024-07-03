@@ -1,6 +1,7 @@
 .footer{
     display: flex;
-    flex: 0 0 auto;
+    /*flex: 0 0 auto;*/
+    flex-shrink: 0;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -9,6 +10,12 @@
     border-radius: 15px;
     padding: 10px;
     text-align: center;
-    margin-bottom: 20px;
+
+    /*position:fixed;*/
+    /*left: 10px;*/
+    /*right: 10px;*/
+    /*bottom: 10px;*/
+    /*width: 100%;*/
+
 
 }
