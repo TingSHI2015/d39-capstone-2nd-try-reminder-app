@@ -120,7 +120,7 @@ class ReminderServiceTest {
 
 
     @Test
-    void  getUpcomingReminders(){
+    void  getUpcomingReminders_whenTimeAndDateAreNotNull(){
         //GIVEN
         Reminder upcomingReminder1 = new Reminder("id1", "Drink Water!", LocalTime.now().withSecond(0).withNano(0), LocalDate.now());
         Reminder upcomingReminder2 = new Reminder("id2", "Call Mama & Papa!",LocalTime.now().withSecond(0).withNano(0), LocalDate.now());
@@ -134,6 +134,26 @@ class ReminderServiceTest {
         //THEN
         verify(reminderRepository).findAll();
         assertEquals(upcomingReminders, actual);
+    }
+
+    @Test
+    void  getUpcomingReminders_whenTimeOrDateAreNull(){
+        //GIVEN
+        Reminder reminderWithoutNull = new Reminder("id1", "Buy milk!", LocalTime.now().withSecond(0).withNano(0), LocalDate.now());
+        Reminder reminderWithNullDate = new Reminder("id2", "Drink Water!", LocalTime.now().withSecond(0).withNano(0), null);
+        Reminder reminderWithNullTime = new Reminder("id3", "Call Mama & Papa!",null, LocalDate.now());
+        Reminder reminderWithNullDateAndTime = new Reminder("id4", "Call Mama & Papa!",null, null);
+        List<Reminder> reminders = List.of(reminderWithoutNull, reminderWithNullDate, reminderWithNullTime, reminderWithNullDateAndTime);
+
+        when(reminderRepository.findAll()).thenReturn(reminders);
+
+        //WHEN
+        List<Reminder> actual = reminderService.getUpcomingReminders();
+
+        //THEN
+        verify(reminderRepository).findAll();
+        List<Reminder> expected = List.of(reminderWithoutNull);
+        assertEquals(expected, actual);
     }
 
 }
