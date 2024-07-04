@@ -23,7 +23,8 @@ export default function UpcomingReminderGallery() {
         axios.get("/api/reminders/upcoming")
             .then(response => {
                 if(response.data.length > 0) {
-                    setUpcomingReminders(response.data);
+                    //setUpcomingReminders(response.data);
+                    setUpcomingReminders(preReminders => [...preReminders, ...response.data]);
                     setShowUpcomingReminder(true);
                 }
             })
