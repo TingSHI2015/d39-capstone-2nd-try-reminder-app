@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -115,6 +116,24 @@ class ReminderServiceTest {
         //THEN
         verify(reminderRepository, never()).save(any(Reminder.class));
         assertEquals("Reminder with id: " + id + " not found. Can't update!", exception.getMessage());
+    }
+
+
+    @Test
+    void  getUpcomingReminders(){
+        //GIVEN
+        Reminder upcomingReminder1 = new Reminder("id1", "Drink Water!", LocalTime.now().withSecond(0).withNano(0), LocalDate.now());
+        Reminder upcomingReminder2 = new Reminder("id2", "Call Mama & Papa!",LocalTime.now().withSecond(0).withNano(0), LocalDate.now());
+        List<Reminder> upcomingReminders = List.of(upcomingReminder1, upcomingReminder2);
+
+        when(reminderRepository.findAll()).thenReturn(upcomingReminders);
+
+        //WHEN
+        List<Reminder> actual = reminderService.getUpcomingReminders();
+
+        //THEN
+        verify(reminderRepository).findAll();
+        assertEquals(upcomingReminders, actual);
     }
 
 }
