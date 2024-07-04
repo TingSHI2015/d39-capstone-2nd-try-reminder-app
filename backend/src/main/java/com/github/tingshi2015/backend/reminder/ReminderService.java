@@ -16,9 +16,9 @@ public class ReminderService {
     private final ReminderRepository reminderRepository;
     private final IdService idService;
 
-    private ReminderDTO convertToDTO(Reminder reminder){
-        return new ReminderDTO(reminder.name(), reminder.time(),reminder.date());
-    }
+//    private ReminderDTO convertToDTO(Reminder reminder){
+//        return new ReminderDTO(reminder.name(), reminder.time(),reminder.date());
+//    }
 
     private Reminder convertToEntity(ReminderDTO reminderDTO){
         String id = idService.randomId();
