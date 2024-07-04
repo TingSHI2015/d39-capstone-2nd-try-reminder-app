@@ -9,10 +9,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -134,4 +136,39 @@ class ReminderControllerIntegrationTest {
 
     }
 
-}
+    @Test
+    @DirtiesContext
+    void getUpcomingReminders() throws Exception {
+        //GIVEN
+        LocalTime upcomingReminder1LocalTime =  LocalTime.now().withSecond(0).withNano(0);
+        LocalDate upcomingReminder1LocalDate =  LocalDate.now();
+        LocalDate upcomingReminder2LocalDate =  LocalDate.now();
+        LocalTime upcomingReminder2LocalTime =  LocalTime.now().withSecond(0).withNano(0);
+        Reminder upcomingReminder1 = new Reminder("id1", "Drink Water!", upcomingReminder1LocalTime, upcomingReminder1LocalDate);
+        Reminder upcomingReminder2 = new Reminder("id2", "Call Mama & Papa!",upcomingReminder2LocalTime, upcomingReminder2LocalDate);
+        reminderRepository.save(upcomingReminder1);
+        reminderRepository.save(upcomingReminder2);
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/reminders/upcoming"))
+                //THEN
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                                                                [
+                                                                {
+                                                                "id": "id1",
+                                                                "name": "Drink Water!"
+                                                                },
+                                                                {
+                                                                "id": "id2",
+                                                                "name": "Call Mama & Papa!"
+                                                                }
+                                                                ]
+                                                                """))
+                .andExpect(MockMvcResultMatchers.jsonPath("*.time").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("*.date").isNotEmpty());
+    }
+    }
+
+
+

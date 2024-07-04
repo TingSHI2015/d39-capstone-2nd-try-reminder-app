@@ -12,7 +12,7 @@ export default function Header(props: Readonly<HeaderProps>){
     const navigate = useNavigate();
 
     const logout = () => {
-        axios.get("/logout")
+        axios.get("/api/logout")
             .then(()=>{navigate("/login")})
             .catch(error => console.error("Logout failed",error))
     }

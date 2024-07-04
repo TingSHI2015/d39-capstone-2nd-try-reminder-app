@@ -1,10 +1,6 @@
 package com.github.tingshi2015.backend.reminder;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
