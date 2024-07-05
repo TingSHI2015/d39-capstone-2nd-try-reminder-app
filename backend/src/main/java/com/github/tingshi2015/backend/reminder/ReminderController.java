@@ -37,4 +37,10 @@ public class ReminderController {
 //        return reminderService.getReminderById(id);
 //    }
 
+    @GetMapping("/upcoming")
+    public List<Reminder> getUpcomingReminders(){
+        return reminderService.getUpcomingReminders();
+
+    }
+
 }

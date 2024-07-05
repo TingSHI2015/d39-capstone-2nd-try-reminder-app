@@ -1,5 +1,4 @@
 package com.github.tingshi2015.backend.reminder;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
