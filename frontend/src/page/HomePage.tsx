@@ -28,9 +28,9 @@ export default function HomePage(props: Readonly<HomePageProps>){
 
     const filteredReminders = props.reminders.filter(
         reminder =>
-            reminder.name.toLowerCase().includes(query.toLowerCase()) ||
-            reminder.time.toLowerCase().includes(query.toLowerCase()) ||
-            reminder.date.toLowerCase().includes(query.toLowerCase())
+            (reminder.name ? reminder.name.toLowerCase().includes(query.toLowerCase()): false) ||
+            (reminder.time ? reminder.time.toLowerCase().includes(query.toLowerCase()): false) ||
+            (reminder.date ? reminder.date.toString().toLowerCase().includes(query.toLowerCase()): false)
     )
 
 
