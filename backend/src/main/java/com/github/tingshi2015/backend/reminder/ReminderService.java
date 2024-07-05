@@ -20,9 +20,9 @@ public class ReminderService {
 //        return new ReminderDTO(reminder.name(), reminder.time(),reminder.date());
 //    }
 
-    private Reminder convertToEntity(ReminderDTO reminderDTO){
+    private Reminder convertToEntity(ReminderDTO reminderDTO) {
         String id = idService.randomId();
-        return new Reminder(id, reminderDTO.name(),reminderDTO.time(),reminderDTO.date());
+        return new Reminder(id, reminderDTO.name(), reminderDTO.time(), reminderDTO.date());
     }
 
     public List<Reminder> getAllReminders() {
@@ -35,14 +35,14 @@ public class ReminderService {
     }
 
     public void deleteAReminder(String id) {
-        if (!reminderRepository.existsById(id)){
+        if (!reminderRepository.existsById(id)) {
             throw new NoSuchElementException("Reminder with id: " + id + " not found. Can't delete!");
         }
         reminderRepository.deleteById(id);
     }
 
     public Reminder updateAReminder(ReminderDTO updateReminder, String id) {
-        if(!reminderRepository.existsById(id)){
+        if (!reminderRepository.existsById(id)) {
             throw new NoSuchElementException("Reminder with id: " + id + " not found. Can't update!");
         }
         Reminder reminderToUpdate = new Reminder(id, updateReminder.name(), updateReminder.time(), updateReminder.date());
@@ -55,6 +55,7 @@ public class ReminderService {
 //                .orElseThrow(()-> new NoSuchElementException("Reminder with id: " + id + " not found. Can't getReminderById"));
 //    }
 
+//----------inefficient method with "filter"!---------------
     public List<Reminder> getUpcomingReminders() {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now().withSecond(0).withNano(0); //ignore second & Nano-second
@@ -64,4 +65,16 @@ public class ReminderService {
                 .filter(reminder -> reminder.date().equals(today) && reminder.time().withSecond(0).withNano(0).equals(now))
                 .collect(Collectors.toList());
     }
+
+//---------efficient  method with "@Query"------------------
+/*
+    public List<Reminder> getUpcomingReminders() {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now().withSecond(0).withNano(0); //ignore second & Nano-second
+        LocalTime nextMinute = now.plusMinutes(1);
+
+        return reminderRepository.findRemindersByDateAndTime(today, now, nextMinute);
+    }
+*/
+
 }
