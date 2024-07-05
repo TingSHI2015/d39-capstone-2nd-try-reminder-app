@@ -61,13 +61,32 @@ class ReminderServiceTest {
         ReminderDTO newReminder = new ReminderDTO(null, null, null);
 
         //WHEN
-        InvalidReminderException exception = assertThrows(InvalidReminderException.class, () -> {
-            reminderService.createAReminder(newReminder);
-        });
+        InvalidReminderException exception = assertThrows(InvalidReminderException.class, () -> reminderService.createAReminder(newReminder));
+
 
         //THEN
         verify(reminderRepository, never()).save(any(Reminder.class));
         assertEquals("Reminder must have at least one non-null filed!", exception.getMessage());
+
+    }
+
+    @Test
+    void createAReminder_withNullName_shouldSaveReminder() {
+        //GIVEN
+        ReminderDTO newReminder = new ReminderDTO(null, LocalTime.of(17, 0, 0), LocalDate.now());
+        Reminder reminderToSave = new Reminder("id1", null, LocalTime.of(17, 0, 0), LocalDate.now());
+
+        when(idService.randomId()).thenReturn("id1");
+        when(reminderRepository.save(any(Reminder.class))).thenReturn(reminderToSave);
+
+        //WHEN
+        Reminder actual = reminderService.createAReminder(newReminder);
+
+        //THEN
+        verify(idService).randomId();
+        verify(reminderRepository).save(reminderToSave);
+        assertEquals(reminderToSave, actual);
+        assertNotNull(actual);
 
     }
 
