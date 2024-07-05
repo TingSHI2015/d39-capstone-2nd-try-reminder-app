@@ -13,16 +13,25 @@ export default function AddAReminder(props: Readonly<AddAReminderProps>){
 
     const handleNewReminderSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (!newReminder.name && !newReminder.time && !newReminder.date){
+            alert("Reminder must have at least one non-null field!");
+            return;
+        }
+
         props.saveAReminder(newReminder);
         setNewReminder({id: "", name:"", time:"", date:""});
         if(props.onClose){
             props.onClose();
         }
+
     };
 
     const onNewReminderChange = (event: ChangeEvent<HTMLInputElement>) =>{
         setNewReminder({...newReminder, [event.target.name]: event.target.value})
     }
+
+
 
     return (
         <form className="form-add-a-reminder" onSubmit={handleNewReminderSubmit}>
