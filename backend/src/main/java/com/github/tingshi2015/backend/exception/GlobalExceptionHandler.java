@@ -15,4 +15,10 @@ public class GlobalExceptionHandler {
     public ErrorMessage handleNoSuchElementException(NoSuchElementException exception){
         return new ErrorMessage(exception.getMessage());
     }
+
+    @ExceptionHandler(InvalidReminderException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleInvalidReminderException(InvalidReminderException exception){
+        return new ErrorMessage(exception.getMessage());
+    }
 }
