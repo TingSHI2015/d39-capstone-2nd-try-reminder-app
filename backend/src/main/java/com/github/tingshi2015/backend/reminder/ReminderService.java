@@ -1,5 +1,6 @@
 package com.github.tingshi2015.backend.reminder;
 
+import com.github.tingshi2015.backend.exception.InvalidReminderException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,9 @@ public class ReminderService {
     }
 
     public Reminder createAReminder(ReminderDTO reminderDTO) {
+        if(reminderDTO.name() == null && reminderDTO.time() == null && reminderDTO.date() == null){
+            throw new InvalidReminderException("Reminder must have at least one non-null filed!");
+        }
         Reminder reminderToRepo = convertToEntity(reminderDTO);
         return reminderRepository.save(reminderToRepo);
     }
