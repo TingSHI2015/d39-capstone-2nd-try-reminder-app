@@ -1,5 +1,6 @@
 package com.github.tingshi2015.backend.reminder;
 
+import com.github.tingshi2015.backend.exception.InvalidReminderException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -36,7 +37,7 @@ class ReminderServiceTest {
     }
 
     @Test
-    void createAReminder() {
+    void createAReminder_withValidFields_shouldSaveReminder() {
         //GIVEN
         ReminderDTO newReminder = new ReminderDTO("name1", LocalTime.of(17, 0, 0), LocalDate.of(2024, 6, 25));
         Reminder reminderToSave = new Reminder("id1", "name1", LocalTime.of(17, 0, 0), LocalDate.of(2024, 6, 25));
@@ -51,6 +52,23 @@ class ReminderServiceTest {
         verify(idService).randomId();
         verify(reminderRepository).save(reminderToSave);
         assertEquals(reminderToSave, actual);
+        assertNotNull(actual);
+    }
+
+    @Test
+    void createAReminder_withAllFieldsNull_shouldThrowInvalidReminderException() {
+        //GIVEN
+        ReminderDTO newReminder = new ReminderDTO(null, null, null);
+
+        //WHEN
+        InvalidReminderException exception = assertThrows(InvalidReminderException.class, () -> {
+            reminderService.createAReminder(newReminder);
+        });
+
+        //THEN
+        verify(reminderRepository, never()).save(any(Reminder.class));
+        assertEquals("Reminder must have at least one non-null filed!", exception.getMessage());
+
     }
 
 
