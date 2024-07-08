@@ -29,7 +29,7 @@ export default function TipCard(props: Readonly<TipCardProps>){
     const handleSaveAReminder = (newReminder: Reminder) => {
         props.handelSaveAReminder(newReminder)
         setShowAddAReminder(false)
-        alert(`Tip "${props.tip.content}" has been successfully added as a reminder.`)
+        // alert(`Tip "${props.tip.content}" has been successfully added as a reminder.`)
     }
 
     const handleClickEdit = () => {
