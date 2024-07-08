@@ -1,4 +1,6 @@
 .upcoming-reminder-gallery{
+    font-family: Arial, sans-serif;
+    color: rgba(167, 7, 211, 0.6);
     display: flex;
     flex-shrink: 0;
     flex-direction: row;
@@ -8,7 +10,11 @@
     background-color: lavender;
     border: 1px solid #d1cccc;
     padding: 10px;
+    margin-top: 1px;
+}
 
 
-
+.upcoming-reminder-gallery ul{
+    list-style-type: square;
+    padding: 1em;
 }

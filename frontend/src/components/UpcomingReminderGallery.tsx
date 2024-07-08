@@ -46,9 +46,9 @@ export default function UpcomingReminderGallery() {
                     <ul>
                         {upcomingReminders.map(reminder => (
                             <li key={reminder.id}>
-                                {reminder.name} at {reminder.time}, {reminder.date}
+                                <strong>{reminder.name}</strong>,  {reminder.time}, {reminder.date}
                             </li>
-                        ))}
+                            ))}
                     </ul>
                     <button onClick={handleClose}>Close</button>
                 </div>
