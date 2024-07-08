@@ -29,6 +29,7 @@ export default function TipCard(props: Readonly<TipCardProps>){
     const handleSaveAReminder = (newReminder: Reminder) => {
         props.handelSaveAReminder(newReminder)
         setShowAddAReminder(false)
+        alert(`Tip "${props.tip.content}" has been successfully added as a reminder.`)
     }
 
     const handleClickEdit = () => {
@@ -50,7 +51,10 @@ export default function TipCard(props: Readonly<TipCardProps>){
     }
 
     const handleDelete = () => {
-        props.handleDeleteATip(props.tip.id);
+        const confirmed = window.confirm("Are you sure you want to delete this Tip?")
+        if (confirmed) {
+            props.handleDeleteATip(props.tip.id);
+        }
     }
 
     return(
