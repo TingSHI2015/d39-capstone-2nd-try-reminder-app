@@ -6,7 +6,6 @@ import {TipDTO} from "../types/TipDTO.ts";
 import TipCard from "../components/TipCard.tsx";
 import {Reminder} from "../types/Reminder.ts";
 import {useNavigate} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
 
 type TipsPageProps = {
     saveAReminder: (newReminder: Reminder) => void,
@@ -61,15 +60,14 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
         navigate("/")
     }
 
-    const handleSaveTipAsAReminder = (newReminder: Reminder) => {
-        props.saveAReminder(newReminder)
-        toast.success(`Tip has been successfully added as a reminder.`)
-    }
+    // const handleSaveTipAsAReminder = (newReminder: Reminder) => {
+    //     props.saveAReminder(newReminder)
+    //     toast.success(`Tip has been successfully added as a reminder.`)
+    // }
 
 
     return(
         <div className="tips-page">
-            <ToastContainer />
             <div className="default-tips">
                 <h3>
                     Lovely Tips:
@@ -79,7 +77,7 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
                         <TipCard
                             key={tip.id}
                             tip={tip}
-                            handelSaveAReminder={handleSaveTipAsAReminder}
+                            handelSaveAReminder={props.saveAReminder}
                             handleDeleteATip={deleteATip}
                             handleUpdateATip={updateATip}
                         />

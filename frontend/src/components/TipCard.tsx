@@ -4,6 +4,10 @@ import {TipDTO} from "../types/TipDTO.ts";
 import {ChangeEvent, useState} from "react";
 import {Reminder} from "../types/Reminder.ts";
 import AddAReminder from "./AddAReminder.tsx";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
+const MySwal = withReactContent(Swal);     //for React-Sweetalert2
 
 type TipCardProps = {
     tip: Tip,
@@ -30,6 +34,16 @@ export default function TipCard(props: Readonly<TipCardProps>){
         props.handelSaveAReminder(newReminder)
         setShowAddAReminder(false)
         // alert(`Tip "${props.tip.content}" has been successfully added as a reminder.`)
+        MySwal.fire({
+            title: 'Success!',
+            text: `Tip "${props.tip.content}" has been successfully added as a reminder.`,
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 2500,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false
+            });
     }
 
     const handleClickEdit = () => {
