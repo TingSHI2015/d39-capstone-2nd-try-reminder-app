@@ -64,12 +64,32 @@ export default function TipCard(props: Readonly<TipCardProps>){
         setIsEditing(false);
     }
 
-    const handleDelete = () => {
+/*    const handleDelete = () => {
         const confirmed = window.confirm("Are you sure you want to delete this Tip?")
         if (confirmed) {
             props.handleDeleteATip(props.tip.id);
         }
-    }
+    }*/
+    const handleDelete = () => {
+        MySwal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this tip?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(result => {
+            if(result.isConfirmed){
+                props.handleDeleteATip(props.tip.id);
+                MySwal.fire(
+                    'Delete!',
+                    'Your tip has been deleted',
+                    'success'
+                )}
+            })
+        }
+
 
     return(
         <div className="tip-card">
