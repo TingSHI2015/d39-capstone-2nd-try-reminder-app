@@ -10,7 +10,7 @@ export default function Footer(){
 
     return(
         <div className="footer">
-            <button onClick={handleTipsClick}>
+            <button onClick={handleTipsClick} className="tips-button">
                 Tips
             </button>
         </div>

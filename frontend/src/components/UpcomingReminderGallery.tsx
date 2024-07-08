@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Reminder} from "../types/Reminder.ts";
 import axios from "axios";
+import "./UpcomingReminderGallery.css"
 
 export default function UpcomingReminderGallery() {
     const [upcomingReminders, setUpcomingReminders] = useState<Reminder[]>([]);
@@ -38,14 +39,14 @@ export default function UpcomingReminderGallery() {
     }
 
     return(
-        <div>
+        <div className="upcoming-reminder-gallery">
             {showUpcomingReminder && (
                 <div>
-                    <h3>Upcoming Reminders</h3>
+                    <h3>Upcoming Reminders: </h3>
                     <ul>
                         {upcomingReminders.map(reminder => (
                             <li key={reminder.id}>
-                                {reminder.name} at {reminder.date} {reminder.time}
+                                {reminder.name} at {reminder.time}, {reminder.date}
                             </li>
                         ))}
                     </ul>

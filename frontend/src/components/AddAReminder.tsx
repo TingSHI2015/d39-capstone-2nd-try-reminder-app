@@ -1,5 +1,6 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {Reminder} from "../types/Reminder.ts";
+import "./AddAReminder.css"
 
 type AddAReminderProps ={
     saveAReminder: (newReminder: Reminder) => void,
@@ -34,23 +35,26 @@ export default function AddAReminder(props: Readonly<AddAReminderProps>){
 
 
     return (
-        <form className="form-add-a-reminder" onSubmit={handleNewReminderSubmit}>
-            <input type="text" onChange={onNewReminderChange} value={newReminder.name} name={"name"}
-                   placeholder={"Name"}/>
-            <input type="time" onChange={onNewReminderChange} value={newReminder.time} name={"time"}
+        <div className="add-a-reminder">
+
+            <form className="form-add-a-reminder" onSubmit={handleNewReminderSubmit}>
+                <input type="text" onChange={onNewReminderChange} value={newReminder.name} name={"name"}
+                   placeholder={"New Reminder Name"}/>
+                <input type="time" onChange={onNewReminderChange} value={newReminder.time} name={"time"}
                    placeholder={"Time(HH:MM:SS)"}/>
-            <input type="date" onChange={onNewReminderChange} value={newReminder.date} name={"date"}
+                <input type="date" onChange={onNewReminderChange} value={newReminder.date} name={"date"}
                    placeholder={"Date(YYYY-MM-DD)"}/>
-            <button>
-                Add
-            </button>
-            {
-                props.onClose && (
-                    <button onClick={props.onClose}>
-                        Cancel
-                    </button>
-                )
-            }
-        </form>
+                <button>
+                    Add
+                </button>
+                {
+                    props.onClose && (
+                        <button onClick={props.onClose}>
+                            Cancel
+                        </button>
+                    )
+                }
+            </form>
+        </div>
     )
 }
