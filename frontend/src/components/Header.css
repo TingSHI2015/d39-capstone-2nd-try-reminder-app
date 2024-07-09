@@ -7,7 +7,8 @@
     align-items: center;
     flex-wrap: wrap;
     background-color: lavender;
-    border: 1px solid #d1cccc;
+    /*border: 1px solid #d1cccc;*/
+    border: 1px solid transparent;
     /*border-radius: 15px;*/
     padding: 10px;
 

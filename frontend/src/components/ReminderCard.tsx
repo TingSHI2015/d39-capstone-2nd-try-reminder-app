@@ -2,6 +2,8 @@ import "./ReminderCard.css"
 import {Reminder} from "../types/Reminder.ts";
 import {ReminderDTO} from "../types/ReminderDTO.ts";
 import {ChangeEvent, useState} from "react";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 type ReminderCardProps = {
     reminder: Reminder,
@@ -12,6 +14,7 @@ type ReminderCardProps = {
 export default function ReminderCard(props: Readonly<ReminderCardProps>){
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [updateReminder, setUpdateReminder] = useState(props.reminder);
+    const MySwal = withReactContent(Swal);     //for React-Sweetalert2
 
     const handleEdit = () => {
         setIsEditing(true)
@@ -31,12 +34,31 @@ export default function ReminderCard(props: Readonly<ReminderCardProps>){
         setIsEditing(false);
     }
 
-    const handleDelete = () => {
+/*    const handleDelete = () => {
         const confirmed = window.confirm("Are you sure you want to delete this reminder?")
         if (confirmed){
             props.deleteAReminder(props.reminder.id);
         }
+    }*/
 
+    const handleDelete = () => {
+        MySwal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this Reminder?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(result => {
+            if(result.isConfirmed){
+                props.deleteAReminder(props.reminder.id);
+                MySwal.fire(
+                    'Delete!',
+                    'Your Reminder has been deleted!',
+                    'success'
+                )}
+        })
     }
 
     return(
