@@ -12,8 +12,9 @@ export default function LoginPage(){
 
     return(
         <div className="login-page">
+            <h1 className="title">Ting's Reminder-App</h1>
 
-                <button onClick={login}>Login with GitHub</button>
+            <button className="login-button" onClick={login}>Login with GitHub</button>
 
         </div>
 

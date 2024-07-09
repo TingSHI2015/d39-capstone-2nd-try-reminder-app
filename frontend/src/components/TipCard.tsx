@@ -41,7 +41,7 @@ export default function TipCard(props: Readonly<TipCardProps>){
             confirmButtonText: 'OK',
             timer: 2500,
             toast: true,
-            position: "top-end",
+            // position: "top-end",
             showConfirmButton: false
             });
     }
