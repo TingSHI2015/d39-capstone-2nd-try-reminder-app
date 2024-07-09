@@ -4,6 +4,10 @@ import {TipDTO} from "../types/TipDTO.ts";
 import {ChangeEvent, useState} from "react";
 import {Reminder} from "../types/Reminder.ts";
 import AddAReminder from "./AddAReminder.tsx";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
+const MySwal = withReactContent(Swal);     //for React-Sweetalert2
 
 type TipCardProps = {
     tip: Tip,
@@ -29,6 +33,17 @@ export default function TipCard(props: Readonly<TipCardProps>){
     const handleSaveAReminder = (newReminder: Reminder) => {
         props.handelSaveAReminder(newReminder)
         setShowAddAReminder(false)
+        // alert(`Tip "${props.tip.content}" has been successfully added as a reminder.`)
+        MySwal.fire({
+            title: 'Success!',
+            text: `Tip "${props.tip.content}" has been successfully added as a reminder.`,
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 2500,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false
+            });
     }
 
     const handleClickEdit = () => {
@@ -49,9 +64,32 @@ export default function TipCard(props: Readonly<TipCardProps>){
         setIsEditing(false);
     }
 
+/*    const handleDelete = () => {
+        const confirmed = window.confirm("Are you sure you want to delete this Tip?")
+        if (confirmed) {
+            props.handleDeleteATip(props.tip.id);
+        }
+    }*/
     const handleDelete = () => {
-        props.handleDeleteATip(props.tip.id);
-    }
+        MySwal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this tip?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(result => {
+            if(result.isConfirmed){
+                props.handleDeleteATip(props.tip.id);
+                MySwal.fire(
+                    'Delete!',
+                    'Your tip has been deleted',
+                    'success'
+                )}
+            })
+        }
+
 
     return(
         <div className="tip-card">

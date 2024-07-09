@@ -32,7 +32,11 @@ export default function ReminderCard(props: Readonly<ReminderCardProps>){
     }
 
     const handleDelete = () => {
-        props.deleteAReminder(props.reminder.id);
+        const confirmed = window.confirm("Are you sure you want to delete this reminder?")
+        if (confirmed){
+            props.deleteAReminder(props.reminder.id);
+        }
+
     }
 
     return(

@@ -60,6 +60,11 @@ export default function TipsPage(props: Readonly<TipsPageProps>) {
         navigate("/")
     }
 
+    // const handleSaveTipAsAReminder = (newReminder: Reminder) => {
+    //     props.saveAReminder(newReminder)
+    //     toast.success(`Tip has been successfully added as a reminder.`)
+    // }
+
 
     return(
         <div className="tips-page">
